@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Client, GenderType, MaritalStatus, } from './client';
+import { Client, GenderType, MaritalStatus, Columns, } from './client';
 import { Observable } from 'rxjs';
 
 const URL = 'http://localhost:3000';
@@ -14,6 +14,40 @@ export class ClientService {
 
   constructor(private http: HttpClient) {
 
+  }
+
+    getGenderTypes(): GenderType[] {
+    return [{
+      id: 1,
+      name: 'Kobieta'
+    },
+    {
+      id: 2,
+      name: 'Mężczyzna'
+    },
+    {
+      id: 3,
+      name: 'Inne'
+    }];
+  }
+
+  getMaritalStatuses(): MaritalStatus[] {
+    return [{
+      id: 1,
+      name: 'Kawaler / Panna'
+      },
+      {
+      id: 2,
+      name: 'Żonaty / Zamężna'
+      },
+      {
+      id: 3,
+      name: 'Wdowiec / Wdowa'
+      },
+      {
+      id: 4,
+      name: 'Rozwiedziony / Rozwiedziona'
+      }];
   }
 
   getClient(clientId: number) {
@@ -36,8 +70,8 @@ export class ClientService {
     return this.http.put(URL + '/clients/' + client.id.toLocaleString(), client);
   }
 
-  getColumnsOrder() {
-    return this.http.get('assets/columns-order.json');
+  getColumnsOrder(): Observable<Columns[]> {
+    return this.http.get<Columns[]>('assets/columns-order.json');
   }
 
 

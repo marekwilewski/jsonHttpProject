@@ -2,7 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 
 import { ClientService } from '../client.service';
-import { Client } from '../client';
+import { Client, Columns } from '../client';
+import { map } from 'rxjs/operators';
+import { pipe } from 'rxjs';
 
 
 
@@ -18,12 +20,14 @@ export class ClientModelComponent implements OnInit {
   // @ViewChild(MatPaginator) paginator: MatPaginator;
 
   client: Client;
+  columns: Columns;
   clientsArray: Client[];
   displayedColumns: string[] = ['id', 'firstName', 'lastName', 'birthDate',
     'pesel', 'nip', 'genderName', 'maritalStatusName'];
-  referenceColumns: string[] = ['id', 'firstName', 'lastName', 'birthDate',
-    'pesel', 'nip', 'genderName', 'maritalStatusName'];
-    newOrderColumns: string[];
+  referenceColumns: string[] = [];
+  // referenceColumns: string[] = ['id', 'firstName', 'lastName', 'birthDate',
+  //   'pesel', 'nip', 'genderName', 'maritalStatusName'];
+  newOrderColumns: string[];
   dataSource;
   firstNameCheck = true;
   lastNameCheck = true;
@@ -42,33 +46,35 @@ export class ClientModelComponent implements OnInit {
     this.clientService.getAllClients().subscribe((clients: Client[]) => {
       this.dataSource = new MatTableDataSource<Client>(clients);
       console.log(this.dataSource);
-      this.clientService.getColumnsOrder().subscribe((data) =>
-        console.log(data));
+      this.clientService.getColumnsOrder().subscribe(result => {
+        this.referenceColumns = result.map(x => x.column);
+        console.log(this.referenceColumns);
+      });
       // this.dataSource.sort = this.sort;
       // this.dataSource.paginator = this.paginator;
     });
   }
 
-   OnChange($event) {
-        const columnName = $event.source.name;
-        if ($event.checked) {
-          this.displayedColumns.splice(this.columnPosition(columnName), 0, columnName);
-        } else {
-          this.displayedColumns.splice(this.displayedColumns.indexOf(columnName), 1);
-        }
-      }
+  OnChange($event) {
+    const columnName = $event.source.name;
+    if ($event.checked) {
+      this.displayedColumns.splice(this.columnPosition(columnName), 0, columnName);
+    } else {
+      this.displayedColumns.splice(this.displayedColumns.indexOf(columnName), 1);
+    }
+  }
 
-      columnPosition(column: string): number {
-        let position = 0;
-        for (let i = 0; i < this.referenceColumns.indexOf(column); i++) {
-          if (this.displayedColumns.indexOf(this.referenceColumns[i]) >= 0) {
-            position++;
-          }
-        }
-        return position;
+  columnPosition(column: string): number {
+    let position = 0;
+    for (let i = 0; i < this.referenceColumns.indexOf(column); i++) {
+      if (this.displayedColumns.indexOf(this.referenceColumns[i]) >= 0) {
+        position++;
       }
+    }
+    return position;
+  }
 
-      changeColumnsOrder() {
-        this.changeColumnsOrderFlag = true;
-      }
+  changeColumnsOrder() {
+    this.changeColumnsOrderFlag = true;
+  }
 }

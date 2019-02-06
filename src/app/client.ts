@@ -18,3 +18,9 @@ export class Client {
   gender?: GenderType;
   maritalStatus?: MaritalStatus;
 }
+
+export class Columns {
+  id: number;
+  column: string;
+  active: boolean;
+}
