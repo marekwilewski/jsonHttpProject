@@ -1,3 +1,10 @@
 <p>
-  client-model works!
+Test
 </p>
+<button mat-button color="primary" (click)='onClick()'>Click</button>
+
+<div *ngIf='clickFlag'>
+  {{client.id}}<br>
+  {{client.firstName}}<br>
+  {{client.lastName}}<br>
+</div>

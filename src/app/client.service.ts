@@ -16,13 +16,12 @@ export class ClientService {
 
   }
 
-  getClient(clientId: number): Observable<Client> {
-    // return this.http.get<Client>(URL + '/clients/' + clientId);
-    return this.http.get<Client>('http://localhost:3000/clients/2');
+  getClient(clientId: number) {
+    return this.http.get<Client>(URL + '/clients/' + clientId);
   }
 
-  getAllClients(): Observable<Client[]> {
-    return this.http.get<Client[]>(URL + '/clients');
+  getAllClients() {
+    return this.http.get(URL + '/clients');
   }
 
 

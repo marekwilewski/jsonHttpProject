@@ -1,0 +1,16 @@
+{
+  "id": 1,
+  "firstName": "Jakub",
+  "lastName": "Pietrzak",
+  "pesel": "74030439574",
+  "nip": "5217653555",
+  "gender": {
+  "id": 2,
+  "name": "Mężczyzna"
+  },
+  "birthDate": "1974-03-04",
+  "maritalStatus": {
+  "id": 2,
+  "name": "Żonaty / Zamężna"
+  }
+  }
