@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource } from '@angular/material';
 
 import { ClientService } from '../client.service';
 import { Client } from '../client';
+
+
 
 
 @Component({
@@ -12,32 +14,61 @@ import { Client } from '../client';
 })
 export class ClientModelComponent implements OnInit {
 
+  // @ViewChild(MatSort) sort: MatSort;
+  // @ViewChild(MatPaginator) paginator: MatPaginator;
+
   client: Client;
   clientsArray: Client[];
-  // tslint:disable-next-line:no-inferrable-types
-  clickFlag: boolean = false;
+  displayedColumns: string[] = ['id', 'firstName', 'lastName', 'birthDate',
+    'pesel', 'nip', 'genderName', 'maritalStatusName'];
+  referenceColumns: string[] = ['id', 'firstName', 'lastName', 'birthDate',
+    'pesel', 'nip', 'genderName', 'maritalStatusName'];
+    newOrderColumns: string[];
+  dataSource;
+  firstNameCheck = true;
+  lastNameCheck = true;
+  birthDateCheck = true;
+  peselCheck = true;
+  nipCheck = true;
+  genderCheck = true;
+  martialCheck = true;
+  changeColumnsOrderFlag = false;
 
   constructor(private clientService: ClientService) {
-    console.log('constructor');
+
   }
 
   ngOnInit() {
-    console.log('ngOnInit');
-    this.clientService.getAllClients().subscribe((data: Client[]) => {
-      console.log(data);
-      this.clientsArray = data;
-      console.log('array - ', this.clientsArray);
+    this.clientService.getAllClients().subscribe((clients: Client[]) => {
+      this.dataSource = new MatTableDataSource<Client>(clients);
+      console.log(this.dataSource);
+      this.clientService.getColumnsOrder().subscribe((data) =>
+        console.log(data));
+      // this.dataSource.sort = this.sort;
+      // this.dataSource.paginator = this.paginator;
     });
-
   }
 
-onClick() {
-  this.clientService.getClient(1).subscribe((data: Client) => {
-    console.log('click1 - ', data);
-    this.client = data;
-    console.log('click2 - ', this.client);
-    this.clickFlag = true;
-  });
-}
+   OnChange($event) {
+        const columnName = $event.source.name;
+        if ($event.checked) {
+          this.displayedColumns.splice(this.columnPosition(columnName), 0, columnName);
+        } else {
+          this.displayedColumns.splice(this.displayedColumns.indexOf(columnName), 1);
+        }
+      }
 
+      columnPosition(column: string): number {
+        let position = 0;
+        for (let i = 0; i < this.referenceColumns.indexOf(column); i++) {
+          if (this.displayedColumns.indexOf(this.referenceColumns[i]) >= 0) {
+            position++;
+          }
+        }
+        return position;
+      }
+
+      changeColumnsOrder() {
+        this.changeColumnsOrderFlag = true;
+      }
 }

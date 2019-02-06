@@ -24,6 +24,22 @@ export class ClientService {
     return this.http.get(URL + '/clients');
   }
 
+  deleteClient(clientId: number) {
+    return this.http.delete(URL + '/clients/' + clientId);
+  }
+
+  addClient(client: Client) {
+    return this.http.post(URL + '/clients/' + client.id.toLocaleString(), client);
+  }
+
+  updateClient(client: Client) {
+    return this.http.put(URL + '/clients/' + client.id.toLocaleString(), client);
+  }
+
+  getColumnsOrder() {
+    return this.http.get('assets/columns-order.json');
+  }
+
 
 
 }

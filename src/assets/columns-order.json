@@ -1,0 +1,44 @@
+{
+"columns": [
+{
+	"id": 1, 
+	"column": "id",
+	"active": true
+},
+{
+	"id": 2, 
+	"column": "firstName",
+	"active": true
+},
+{
+	"id": 3, 
+	"column": "lastName",
+	"active": true
+},
+{
+	"id": 4, 
+	"column": "birthDate",
+	"active": true
+},
+{
+	"id": 5, 
+	"column": "pesel",
+	"active": true
+},
+{
+	"id": 6, 
+	"column": "nip",
+	"active": true
+},
+{
+	"id": 7, 
+	"column": "genderName",
+	"active": true
+},
+{
+	"id": 8, 
+	"column": "maritalStatusName",
+	"active": true
+},
+]
+}
