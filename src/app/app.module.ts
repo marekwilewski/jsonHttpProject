@@ -1,5 +1,5 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -11,14 +11,18 @@ import { MaterialModule } from './materialModule';
 import { AppComponent } from './app.component';
 import { ClientModelComponent } from './client-model/client-model.component';
 import { ClientService } from './client.service';
-import { ChangeColumnsOrderComponent } from './change-columns-order/change-columns-order.component';
+import { CurrentClientService } from './current-client.service';
+import { EditClientComponent } from './edit-client/edit-client.component';
+import { AppRoutingModule } from './app-routing.module';
+import { MenuComponent } from './menu/menu.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ClientModelComponent,
-    ChangeColumnsOrderComponent
+    EditClientComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
@@ -28,9 +32,10 @@ import { ChangeColumnsOrderComponent } from './change-columns-order/change-colum
     ReactiveFormsModule,
     FlexLayoutModule,
     MaterialModule,
-    DragDropModule
+    DragDropModule,
+    AppRoutingModule
   ],
-  providers: [ClientService],
+  providers: [ClientService, CurrentClientService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

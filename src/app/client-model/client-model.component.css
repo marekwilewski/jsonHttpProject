@@ -4,7 +4,7 @@ table {
 
 .mat-cell,
 .mat-header-cell {
-  flex: 0 0 120px;
+  flex: 0 0 130px;
 }
 
 .mat-cell.mat-cell.cdk-column-id.mat-column-id,
@@ -16,7 +16,6 @@ table {
 .mat-header-cell.mat-header-cell.cdk-column-genderName.mat-column-genderName {
   flex: 0 0 100px !important;
 }
-
 
 .mat-cell.mat-cell.cdk-column-maritalStatusName.mat-column-maritalStatusName,
 .mat-header-cell.mat-header-cell.cdk-column-maritalStatusName.mat-column-maritalStatusName {
@@ -86,4 +85,16 @@ table {
 
 .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.highlight{
+  background: rgb(204, 227, 235);
+}
+
+.mat-row:hover {
+    background-color:rgb(240, 240, 240);
+}
+
+.mat-row:hover.highlight {
+    background-color: rgb(204, 227, 235);
 }

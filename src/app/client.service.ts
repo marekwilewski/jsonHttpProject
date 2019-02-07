@@ -74,6 +74,4 @@ export class ClientService {
     return this.http.get<Columns[]>('assets/columns-order.json');
   }
 
-
-
 }

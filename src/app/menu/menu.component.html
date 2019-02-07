@@ -1,0 +1,17 @@
+<div fxLayout="row" fxLayoutGap="5%" fxLayoutAlign="center">
+  <button mat-stroked-button color="primary" routerLink="/">
+    <mat-icon>home</mat-icon>
+    <span>Home</span>
+  </button>
+  <button mat-stroked-button color="primary" routerLink="/clientList">
+    <mat-icon>list</mat-icon>
+    <span>List</span>
+  </button>
+  <button mat-stroked-button color="primary" routerLink="/addClient">
+    <mat-icon>person_add</mat-icon>
+    <span>Add New Client</span>
+  </button>
+    <button *ngIf="selectedIndex !== -1" mat-raised-button (click)="delete()">Delete</button>
+    <button *ngIf="selectedIndex !== -1" mat-raised-button routerLink="/edit">Edit</button>
+</div>
+<br>

@@ -3,11 +3,8 @@ import { MatTableDataSource } from '@angular/material';
 
 import { ClientService } from '../client.service';
 import { Client, Columns } from '../client';
-import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { map } from 'rxjs/operators';
-import { pipe } from 'rxjs';
-
-
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CurrentClientService } from '../current-client.service';
 
 
 @Component({
@@ -25,33 +22,26 @@ export class ClientModelComponent implements OnInit {
   clientsArray: Client[];
   displayedColumns: string[] = ['id', 'firstName', 'lastName', 'birthDate',
     'pesel', 'nip', 'genderName', 'maritalStatusName'];
-  referenceColumns: string[] = ['id'];
-  // referenceColumns: string[] = ['id', 'firstName', 'lastName', 'birthDate',
-  //   'pesel', 'nip', 'genderName', 'maritalStatusName'];
-  timePeriods: string[];
+  referenceColumns: string[] = [];
   dataSource;
-  firstNameCheck = true;
-  lastNameCheck = true;
-  birthDateCheck = true;
-  peselCheck = true;
-  nipCheck = true;
-  genderCheck = true;
-  martialCheck = true;
   changeColumnsOrderFlag = false;
+  selectedRow: number;
 
-  constructor(private clientService: ClientService) {
+  constructor(private clientService: ClientService, private currentClientService: CurrentClientService) {
     this.clientService.getColumnsOrder().subscribe(result => {
       this.columnsArray = result;
       this.referenceColumns = ['id'].concat(result.map(x => x.column));
-      this.timePeriods = result.map(x => x.fullName);
-      this.displayedColumns = ['id'].concat(result.filter(x => x.active !== false).map(x => x.column));
+      this.displayedColumns = ['id'].concat(result.filter(x => x.active !== false)
+                                      .map(x => x.column));
     });
+    this.currentClientService.selectedRow$.subscribe((value: number) => {
+      this.selectedRow = value;
+      });
   }
 
   ngOnInit() {
     this.clientService.getAllClients().subscribe((clients: Client[]) => {
       this.dataSource = new MatTableDataSource<Client>(clients);
-      console.log(this.dataSource);
       // this.dataSource.sort = this.sort;
       // this.dataSource.paginator = this.paginator;
     });
@@ -64,6 +54,10 @@ export class ClientModelComponent implements OnInit {
     } else {
       this.displayedColumns.splice(this.displayedColumns.indexOf(columnName), 1);
     }
+    this.currentClientService.selectedRow$.subscribe((value: number) => {
+      this.selectedRow = value;
+      });
+      console.log('model-OnChange - ', this.selectedRow);
   }
 
   columnPosition(column: string): number {
@@ -82,14 +76,18 @@ export class ClientModelComponent implements OnInit {
 
   checkColumnsOrder() {
     this.changeColumnsOrderFlag = false;
-    this.referenceColumns = ['id'].concat(this.columnsArray
-                                  .map(x => x.column));
-    this.displayedColumns = ['id'].concat(this.columnsArray
-                                  .filter(x => x.active !== false)
-                                  .map(x => x.column));
+    this.referenceColumns = ['id'].concat(this.columnsArray.map(x => x.column));
+    this.displayedColumns = ['id'].concat(this.columnsArray.filter(x => x.active !== false)
+                                                            .map(x => x.column));
   }
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.columnsArray, event.previousIndex, event.currentIndex);
+  }
+
+  highlight(row) {
+    this.currentClientService.addData(row.id);
+    this.currentClientService.setCurrentClient(row);
+    console.log('model-highlight - ', this.selectedRow);
   }
 }

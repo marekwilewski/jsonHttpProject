@@ -1,0 +1,37 @@
+[
+	{
+		"column": "firstName",
+		"fullName": "First Name",
+		"active": true
+	},
+	{
+		"column": "lastName",
+		"fullName": "Last Name",
+		"active": true
+	},
+	{
+		"column": "birthDate",
+		"fullName": "Birth Date",
+		"active": true
+	},
+	{
+		"column": "pesel",
+		"fullName": "PESEL",
+		"active": true
+	},
+	{
+		"column": "nip",
+		"fullName": "NIP",
+		"active": true
+	},
+	{
+		"column": "genderName",
+		"fullName": "Gender",
+		"active": true
+	},
+	{
+		"column": "maritalStatusName",
+		"fullName": "Martial Status",
+		"active": true
+	}
+]
