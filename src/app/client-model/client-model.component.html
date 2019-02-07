@@ -7,38 +7,20 @@
       </div>
         <table>
           <tr>
-            <td>
+            <td *ngFor="let column of columnsArray">
               <mat-checkbox color="primary" (change)="OnChange($event)" class="example-margin"
-                [(ngModel)]="firstNameCheck" name="firstName">First Name</mat-checkbox>
+                [(ngModel)]="column.active" name={{column.column}}>{{column.fullName}}</mat-checkbox>
             </td>
-            <td>
-              <mat-checkbox color="primary" (change)="OnChange($event)" class="example-margin"
-                [(ngModel)]="lastNameCheck" name="lastName">Last Name</mat-checkbox>
-            </td>
-            <td>
-              <mat-checkbox color="primary" (change)="OnChange($event)" class="example-margin"
-                [(ngModel)]="birthDateCheck" name="birthDate">Birth Date</mat-checkbox>
-            </td>
-            <td>
-              <mat-checkbox color="primary" (change)="OnChange($event)" class="example-margin"
-                [(ngModel)]="peselCheck" name="pesel">PESEL</mat-checkbox>
-            </td>
-            <td>
-              <mat-checkbox color="primary" (change)="OnChange($event)" class="example-margin"
-                [(ngModel)]="nipCheck" name="nip">NIP</mat-checkbox>
-            </td>
-            <td>
-              <mat-checkbox color="primary" (change)="OnChange($event)" class="example-margin"
-                [(ngModel)]="genderCheck" name="genderName">Gender</mat-checkbox>
-            </td>
-            <td>
-              <mat-checkbox color="primary" (change)="OnChange($event)" class="example-margin"
-                [(ngModel)]="martialCheck" name="maritalStatusName">Martial Status</mat-checkbox>
-            </td>
-
           </tr>
         </table>
       </mat-card-content>
+    </mat-card>
+
+    <mat-card *ngIf="changeColumnsOrderFlag" fxLayout="column" fxLayoutAlign="space-between start">
+      <div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let column of columnsArray" cdkDrag>{{column.fullName}}</div>
+      </div>
+      <button mat-raised-button fxFlexAlign="end" color="warm" (click)='checkColumnsOrder()'>Zatwierdź kolejności kolumn</button>
     </mat-card>
 
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8">

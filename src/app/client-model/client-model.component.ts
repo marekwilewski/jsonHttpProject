@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material';
 
 import { ClientService } from '../client.service';
 import { Client, Columns } from '../client';
+import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { map } from 'rxjs/operators';
 import { pipe } from 'rxjs';
 
@@ -20,14 +21,14 @@ export class ClientModelComponent implements OnInit {
   // @ViewChild(MatPaginator) paginator: MatPaginator;
 
   client: Client;
-  columns: Columns;
+  columnsArray: Columns[] = [];
   clientsArray: Client[];
   displayedColumns: string[] = ['id', 'firstName', 'lastName', 'birthDate',
     'pesel', 'nip', 'genderName', 'maritalStatusName'];
-  referenceColumns: string[] = [];
+  referenceColumns: string[] = ['id'];
   // referenceColumns: string[] = ['id', 'firstName', 'lastName', 'birthDate',
   //   'pesel', 'nip', 'genderName', 'maritalStatusName'];
-  newOrderColumns: string[];
+  timePeriods: string[];
   dataSource;
   firstNameCheck = true;
   lastNameCheck = true;
@@ -39,17 +40,18 @@ export class ClientModelComponent implements OnInit {
   changeColumnsOrderFlag = false;
 
   constructor(private clientService: ClientService) {
-
+    this.clientService.getColumnsOrder().subscribe(result => {
+      this.columnsArray = result;
+      this.referenceColumns = ['id'].concat(result.map(x => x.column));
+      this.timePeriods = result.map(x => x.fullName);
+      this.displayedColumns = ['id'].concat(result.filter(x => x.active !== false).map(x => x.column));
+    });
   }
 
   ngOnInit() {
     this.clientService.getAllClients().subscribe((clients: Client[]) => {
       this.dataSource = new MatTableDataSource<Client>(clients);
       console.log(this.dataSource);
-      this.clientService.getColumnsOrder().subscribe(result => {
-        this.referenceColumns = result.map(x => x.column);
-        console.log(this.referenceColumns);
-      });
       // this.dataSource.sort = this.sort;
       // this.dataSource.paginator = this.paginator;
     });
@@ -75,6 +77,19 @@ export class ClientModelComponent implements OnInit {
   }
 
   changeColumnsOrder() {
-    this.changeColumnsOrderFlag = true;
+    this.changeColumnsOrderFlag = !this.changeColumnsOrderFlag;
+  }
+
+  checkColumnsOrder() {
+    this.changeColumnsOrderFlag = false;
+    this.referenceColumns = ['id'].concat(this.columnsArray
+                                  .map(x => x.column));
+    this.displayedColumns = ['id'].concat(this.columnsArray
+                                  .filter(x => x.active !== false)
+                                  .map(x => x.column));
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.columnsArray, event.previousIndex, event.currentIndex);
   }
 }

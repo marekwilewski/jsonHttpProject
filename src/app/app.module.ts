@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import 'hammerjs';
 
 import { MaterialModule } from './materialModule';
@@ -26,7 +27,8 @@ import { ChangeColumnsOrderComponent } from './change-columns-order/change-colum
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    MaterialModule
+    MaterialModule,
+    DragDropModule
   ],
   providers: [ClientService],
   bootstrap: [AppComponent]

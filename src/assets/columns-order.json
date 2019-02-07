@@ -1,42 +1,37 @@
 [
 	{
-		"id": 1,
-		"column": "id",
-		"active": true
-	},
-	{
-		"id": 2,
 		"column": "firstName",
+		"fullName": "First Name",
 		"active": true
 	},
 	{
-		"id": 3,
 		"column": "lastName",
+		"fullName": "Last Name",
 		"active": true
 	},
 	{
-		"id": 4,
 		"column": "birthDate",
+		"fullName": "Birth Date",
 		"active": true
 	},
 	{
-		"id": 5,
 		"column": "pesel",
+		"fullName": "PESEL",
 		"active": true
 	},
 	{
-		"id": 6,
 		"column": "nip",
+		"fullName": "NIP",
 		"active": true
 	},
 	{
-		"id": 7,
 		"column": "genderName",
-		"active": false
+		"fullName": "Gender",
+		"active": true
 	},
 	{
-		"id": 8,
 		"column": "maritalStatusName",
-		"active": false
+		"fullName": "Martial Status",
+		"active": true
 	}
 ]

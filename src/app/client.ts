@@ -20,7 +20,7 @@ export class Client {
 }
 
 export class Columns {
-  id: number;
   column: string;
+  fullName: string;
   active: boolean;
 }

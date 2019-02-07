@@ -3,7 +3,8 @@ import { MAT_LABEL_GLOBAL_OPTIONS, MAT_DATE_LOCALE,
     MatCardModule, MatCheckboxModule, MatTableModule, MatIconModule, MatButtonModule
 } from '@angular/material';
 
-const modules = [MatCardModule, MatCheckboxModule, MatTableModule, MatIconModule, MatButtonModule];
+const modules = [MatCardModule, MatCheckboxModule, MatTableModule, MatIconModule, MatButtonModule
+  ];
 
 @NgModule({
     imports: modules,
