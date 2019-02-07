@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CurrentClientService } from '../current-client.service';
 import { ClientService } from '../client.service';
 
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
