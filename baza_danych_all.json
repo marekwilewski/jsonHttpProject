@@ -2539,26 +2539,6 @@
         "name": "Żonaty / Zamężna",
         "active": true
       }
-    },
-    {
-      "id": 127,
-      "insertData": "2019-01-17T13:29:34.983+0000",
-      "updateData": "2019-01-17T13:29:34.983+0000",
-      "firstName": "Matylda",
-      "lastName": "Taniec",
-      "pesel": "71072482183",
-      "nip": "4980075553",
-      "gender": {
-        "id": 1,
-        "name": "Kobieta",
-        "active": true
-      },
-      "birthDate": "1971-07-24",
-      "maritalStatus": {
-        "id": 4,
-        "name": "Rozwiedziony / Rozwiedziona",
-        "active": true
-      }
     }
   ]
 }

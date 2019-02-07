@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 
 import { ClientService } from '../client.service';
 import { Client, Columns } from '../client';
@@ -14,8 +14,8 @@ import { CurrentClientService } from '../current-client.service';
 })
 export class ClientModelComponent implements OnInit {
 
-  // @ViewChild(MatSort) sort: MatSort;
-  // @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   client: Client;
   columnsArray: Columns[] = [];
@@ -42,8 +42,8 @@ export class ClientModelComponent implements OnInit {
   ngOnInit() {
     this.clientService.getAllClients().subscribe((clients: Client[]) => {
       this.dataSource = new MatTableDataSource<Client>(clients);
-      // this.dataSource.sort = this.sort;
-      // this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     });
   }
 

@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import 'hammerjs';
 
 import { MaterialModule } from './materialModule';
@@ -33,7 +34,8 @@ import { MenuComponent } from './menu/menu.component';
     FlexLayoutModule,
     MaterialModule,
     DragDropModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatMomentDateModule
   ],
   providers: [ClientService, CurrentClientService],
   bootstrap: [AppComponent]

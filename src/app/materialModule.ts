@@ -1,9 +1,13 @@
 import { NgModule } from '@angular/core';
 import { MAT_LABEL_GLOBAL_OPTIONS, MAT_DATE_LOCALE,
-    MatCardModule, MatCheckboxModule, MatTableModule, MatIconModule, MatButtonModule
+        MatCardModule, MatCheckboxModule, MatTableModule, MatIconModule,
+        MatButtonModule, MatPaginatorModule, MatSortModule, MatFormFieldModule,
+        MatDatepickerModule, MatSelectModule, MatNativeDateModule
 } from '@angular/material';
 
-const modules = [MatCardModule, MatCheckboxModule, MatTableModule, MatIconModule, MatButtonModule
+const modules = [MatCardModule, MatCheckboxModule, MatTableModule, MatIconModule,
+                MatButtonModule, MatPaginatorModule, MatSortModule, MatFormFieldModule,
+                MatDatepickerModule, MatSelectModule, MatNativeDateModule
   ];
 
 @NgModule({
