@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CurrentClientService } from '../current-client.service';
-import { BehaviorSubject } from 'rxjs';
 import { ClientService } from '../client.service';
 
 @Component({
