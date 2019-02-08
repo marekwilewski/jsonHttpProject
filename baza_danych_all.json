@@ -1,27 +1,6 @@
 {
   "clients": [
     {
-      "id": 1,
-      "insertData": "2018-12-07T11:52:51.613+0000",
-      "updateData": "2018-12-07T11:52:51.613+0000",
-      "active": true,
-      "firstName": "Jakub",
-      "lastName": "Pietrzak",
-      "pesel": "74030439574",
-      "nip": "5217653555",
-      "gender": {
-        "id": 2,
-        "name": "Mężczyzna",
-        "active": true
-      },
-      "birthDate": "1974-03-04",
-      "maritalStatus": {
-        "id": 2,
-        "name": "Żonaty / Zamężna",
-        "active": true
-      }
-    },
-    {
       "id": 2,
       "insertData": "2018-12-07T11:52:51.630+0000",
       "updateData": "2018-12-07T11:52:51.630+0000",

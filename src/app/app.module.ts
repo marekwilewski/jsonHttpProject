@@ -19,6 +19,7 @@ import { CurrentClientService } from './current-client.service';
 import { EditClientComponent } from './edit-client/edit-client.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MenuComponent } from './menu/menu.component';
+import { AddClientComponent } from './add-client/add-client.component';
 
 export const DateFormat = {
   parse: {
@@ -37,7 +38,8 @@ export const DateFormat = {
     AppComponent,
     ClientModelComponent,
     EditClientComponent,
-    MenuComponent
+    MenuComponent,
+    AddClientComponent
   ],
   imports: [
     BrowserModule,

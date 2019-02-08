@@ -1,14 +1,14 @@
 <div>
   <form [formGroup]="clientForm" class="example-form" (ngSubmit)="onSubmit()">
-      <mat-form-field class="example-full-width">
-          <input matInput formControlName="firstName" (keypress)="letterOnly($event)" placeholder="First name">
-          <mat-error *ngIf="clientForm.get('firstName').hasError('required')">
-              Imię jest wymagane
-          </mat-error>
-          <mat-error *ngIf="clientForm.get('firstName').hasError('pattern')">
-              Złe znaki w imieniu
-          </mat-error>
-      </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <input matInput formControlName="firstName" (keypress)="letterOnly($event)" placeholder="First name">
+        <mat-error *ngIf="clientForm.get('firstName').hasError('required')">
+            Imię jest wymagane
+        </mat-error>
+        <mat-error *ngIf="clientForm.get('firstName').hasError('pattern')">
+            Złe znaki w imieniu
+        </mat-error>
+    </mat-form-field>
 
       <mat-form-field class="example-full-width">
           <input matInput formControlName="lastName" (keypress)="letterOnly($event)" placeholder="Last name">

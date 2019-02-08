@@ -1,29 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Client, GenderType, MaritalStatus } from '../client';
-import { FormGroup, FormBuilder, Validators, FormControl,
-  FormGroupDirective, NgForm } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material';
-import * as moment from 'moment';
-
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { ClientService } from '../client.service';
+import { CurrentClientService } from '../current-client.service';
 import { PeselSumValidator } from '../pesel-SumCheck-Validator';
 import { NipSumValidator } from '../nip-SumCheck-Validator';
-import { CurrentClientService } from '../current-client.service';
 
-
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
 
 @Component({
   selector: 'app-edit-client',
   templateUrl: './edit-client.component.html',
   styleUrls: ['./edit-client.component.css']
 })
+
 export class EditClientComponent implements OnInit {
 
   client: Client;
@@ -31,36 +21,36 @@ export class EditClientComponent implements OnInit {
   martialStatuses: MaritalStatus[];
   clientForm: FormGroup;
 
-
   constructor(private builder: FormBuilder, private clientService: ClientService,
     private currentClientService: CurrentClientService) {
     this.clientForm = this.builder.group({
       firstName: ['', [Validators.required, Validators.pattern('^[A-ZŚŁŻŹa-z ąćęłńóżź]+$')]],
       lastName: ['', [Validators.required, Validators.pattern('^[A-Za-z ąćęłńóżźŚ.-]+$')]],
-      birthDate: moment().format('yyyy-MM-dd'),
+      birthDate: new Date(),
       pesel: ['', [Validators.minLength(11), PeselSumValidator.peselSumValidator]],
       nip: ['', [Validators.minLength(10), NipSumValidator.nipSumValidator]],
       genderType: new GenderType,
       martialStatusType: new MaritalStatus
     });
-   }
+  }
 
   ngOnInit() {
     this.client = this.currentClientService.getCurrentClient();
-    console.log('ngOnInit - client - ', this.client);
-      this.genders = this.clientService.getGenderTypes();
-      this.martialStatuses = this.clientService.getMaritalStatuses();
-      this.clientForm.setValue({
-        firstName: this.client.firstName, lastName: this.client.lastName, pesel: this.client.pesel,
-        nip: this.client.nip, birthDate: this.client.birthDate, genderType: this.client.gender.id,
-        martialStatusType: this.client.maritalStatus.id
-      });
-      console.log('ngOnInit - clientForm - ', this.clientForm);
+    this.genders = this.clientService.getGenderTypes();
+    this.martialStatuses = this.clientService.getMaritalStatuses();
+    this.clientForm.setValue({
+      firstName: this.client.firstName, lastName: this.client.lastName, pesel: this.client.pesel,
+      nip: this.client.nip, birthDate: this.client.birthDate, genderType: this.client.gender.id,
+      martialStatusType: this.client.maritalStatus.id
+    });
+    this.clientForm.markAsTouched();
+    this.clientForm.markAsDirty();
+    console.log(this.clientForm);
   }
 
   numberOnly(event): boolean {
     const charCode = event.which;
-    if (charCode > 47 && charCode < 58 || charCode > 45 && charCode < 47)  {
+    if (charCode > 47 && charCode < 58 || charCode > 45 && charCode < 47) {
       return true;
     }
     return false;
@@ -69,8 +59,8 @@ export class EditClientComponent implements OnInit {
   letterOnly(event): boolean {
     const charCode = event.which;
     if (((charCode > 38 && charCode !== 40 && charCode !== 41 && charCode !== 42
-        && charCode !== 43 && charCode !== 44) || charCode === 32)
-    && (charCode < 48 || (charCode > 57  && charCode !== 64))) {
+      && charCode !== 43 && charCode !== 44) || charCode === 32)
+      && (charCode < 48 || (charCode > 57 && charCode !== 64))) {
       return true;
     }
     return false;
@@ -81,7 +71,7 @@ export class EditClientComponent implements OnInit {
     this.client.lastName = this.clientForm.value.lastName;
     this.client.pesel = this.clientForm.value.pesel;
     this.client.nip = this.clientForm.value.nip;
-    this.client.birthDate = this.clientForm.value.birthDate.format('l');
+    this.client.birthDate = this.clientForm.value.birthDate;
     switch (this.clientForm.value.genderType) {
       case 1: {
         this.client.gender = { id: 1, name: 'Kobieta' };
@@ -116,20 +106,8 @@ export class EditClientComponent implements OnInit {
         this.client.maritalStatus = { id: 5, name: 'Inne' };
       }
     }
-
-    this.clientService.addClient(this.client).subscribe(
-      result => {
-      },
-      errors => {
-        if (errors.status === 409) {
-          errors = errors.error.map((error) => {
-            return error.defaultMessage;
-          });
-        } else {
-          errors = errors.message;
-        }
-        console.log(errors);
-      });
+    console.log(this.client);
+    // this.clientService.addClient(this.client).subscribe(
+    //   result => console.log(result));
   }
-
 }
