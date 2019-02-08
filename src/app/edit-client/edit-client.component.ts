@@ -1,9 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { Client, GenderType, MaritalStatus } from '../client';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl,
+  FormGroupDirective, NgForm } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material';
+import * as moment from 'moment';
+
+
 import { ClientService } from '../client.service';
 import { PeselSumValidator } from '../pesel-SumCheck-Validator';
 import { NipSumValidator } from '../nip-SumCheck-Validator';
+import { CurrentClientService } from '../current-client.service';
+
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-edit-client',
@@ -18,11 +32,12 @@ export class EditClientComponent implements OnInit {
   clientForm: FormGroup;
 
 
-  constructor(private builder: FormBuilder, private clientService: ClientService) {
+  constructor(private builder: FormBuilder, private clientService: ClientService,
+    private currentClientService: CurrentClientService) {
     this.clientForm = this.builder.group({
       firstName: ['', [Validators.required, Validators.pattern('^[A-ZŚŁŻŹa-z ąćęłńóżź]+$')]],
       lastName: ['', [Validators.required, Validators.pattern('^[A-Za-z ąćęłńóżźŚ.-]+$')]],
-      birthDate: new Date(''),
+      birthDate: moment().format('yyyy-MM-dd'),
       pesel: ['', [Validators.minLength(11), PeselSumValidator.peselSumValidator]],
       nip: ['', [Validators.minLength(10), NipSumValidator.nipSumValidator]],
       genderType: new GenderType,
@@ -31,9 +46,16 @@ export class EditClientComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.client = new Client();
+    this.client = this.currentClientService.getCurrentClient();
+    console.log('ngOnInit - client - ', this.client);
       this.genders = this.clientService.getGenderTypes();
       this.martialStatuses = this.clientService.getMaritalStatuses();
+      this.clientForm.setValue({
+        firstName: this.client.firstName, lastName: this.client.lastName, pesel: this.client.pesel,
+        nip: this.client.nip, birthDate: this.client.birthDate, genderType: this.client.gender.id,
+        martialStatusType: this.client.maritalStatus.id
+      });
+      console.log('ngOnInit - clientForm - ', this.clientForm);
   }
 
   numberOnly(event): boolean {
