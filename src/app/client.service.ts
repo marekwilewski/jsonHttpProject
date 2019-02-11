@@ -63,7 +63,7 @@ export class ClientService {
   }
 
   addClient(client: Client) {
-    return this.http.post(URL + '/clients/' + client.id.toLocaleString(), client);
+    return this.http.post(URL + '/clients/' + client.id.toLocaleString(), JSON.stringify(client, null, ' '));
   }
 
   updateClient(client: Client) {

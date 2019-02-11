@@ -24,6 +24,10 @@ export class MenuComponent implements OnInit {
     console.log('menu-ngOnInit - ', this.selectedIndex);
   }
 
+  edit() {
+    this.selectedIndex = -1;
+  }
+
   delete() {
     this.clientService.deleteClient(this.currentClientService.getCurrentClient().id).subscribe(
       result => {

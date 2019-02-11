@@ -48,7 +48,7 @@
       </mat-form-field>
       <br><br>
 
-      <mat-form-field>
+      <mat-form-field class="example-full-width">
           <mat-select formControlName="genderType" placeholder="Gender">
               <mat-option *ngFor="let gender of genders" [value]="gender.id">
                   {{gender.name}}
@@ -56,7 +56,7 @@
           </mat-select>
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field class="example-full-width">
           <mat-select formControlName="martialStatusType" placeholder="Marital Status">
               <mat-option *ngFor="let maritalStatus of martialStatuses" [value]="maritalStatus.id">
                   {{maritalStatus.name}}

@@ -2498,26 +2498,6 @@
         "name": "Rozwiedziony / Rozwiedziona",
         "active": true
       }
-    },
-    {
-      "id": 121,
-      "insertData": "2019-01-17T12:12:02.613+0000",
-      "updateData": "2019-01-17T12:12:02.613+0000",
-      "firstName": "Ingebora",
-      "lastName": "Nowakowska",
-      "pesel": "84022395645",
-      "nip": "9337903569",
-      "gender": {
-        "id": 1,
-        "name": "Kobieta",
-        "active": true
-      },
-      "birthDate": "1966-06-06",
-      "maritalStatus": {
-        "id": 2,
-        "name": "Żonaty / Zamężna",
-        "active": true
-      }
     }
   ]
 }

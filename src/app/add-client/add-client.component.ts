@@ -23,7 +23,7 @@ export class AddClientComponent implements OnInit {
     this.clientForm = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.pattern('^[A-ZŚŁŻŹa-z ąćęłńóżź]+$')]],
       lastName: ['', [Validators.required, Validators.pattern('^[A-Za-z ąćęłńóżźŚ.-]+$')]],
-      birthDate: moment().toDate(),
+      birthDate: moment().format('YYYY-MM-DD'),
       pesel: ['', [Validators.minLength(11), PeselSumValidator.peselSumValidator]],
       nip: ['', [Validators.minLength(10), NipSumValidator.nipSumValidator]],
       genderType: new GenderType,
@@ -57,9 +57,49 @@ export class AddClientComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log('clientForm', this.clientForm);
     this.client = this.clientForm.value;
-    console.log(this.clientForm);
-    console.log(this.client);
+    this.client.birthDate = new Date(this.clientForm.value.birthDate.format('YYYY-MM-DD'));
+    console.log('client', this.client);
+
+    const date = new Date('1963-02-11');
+    console.log(date);
+    switch (this.clientForm.value.genderType) {
+      case 1: {
+        this.client.gender = { id: 1, name: 'Kobieta' };
+        break;
+      }
+      case 2: {
+        this.client.gender = { id: 2, name: 'Mężczyzna' };
+        break;
+      }
+      default: {
+        this.client.gender = { id: 3, name: 'Inne' };
+      }
+    }
+    switch (this.clientForm.value.maritalStatusType) {
+      case 1: {
+        this.client.maritalStatus = { id: 1, name: 'Kawaler / Panna' };
+        break;
+      }
+      case 2: {
+        this.client.maritalStatus = { id: 2, name: 'Żonaty / Zamężna' };
+        break;
+      }
+      case 3: {
+        this.client.maritalStatus = { id: 3, name: 'Wdowiec / Wdowa' };
+        break;
+      }
+      case 4: {
+        this.client.maritalStatus = { id: 4, name: 'Rozwiedziony / Rozwiedziona' };
+        break;
+      }
+      default: {
+        this.client.maritalStatus = { id: 5, name: 'Inne' };
+      }
+    }
+    console.log('JSON client', JSON.stringify(this.client, null, ' '));
+    // this.clientService.addClient(this.client).subscribe(result => console.log(result));
   }
 
 }

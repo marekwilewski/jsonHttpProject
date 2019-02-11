@@ -15,7 +15,7 @@
     <mat-icon>perm_identity</mat-icon>
     Delete
   </button>
-  <button *ngIf="selectedIndex !== -1" mat-stroked-button color="primary" routerLink="/edit">
+  <button *ngIf="selectedIndex !== -1" mat-stroked-button color="primary" (click)="edit()" routerLink="/edit">
     <mat-icon>assignment_ind</mat-icon>
     Edit
   </button>
